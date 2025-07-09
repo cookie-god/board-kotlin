@@ -1,4 +1,4 @@
-package cookie.backend.board
+package cookie.backend.board.domain.user
 
 import org.springframework.stereotype.Service
 

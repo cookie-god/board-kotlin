@@ -1,11 +1,11 @@
-package cookie.backend.board
+package cookie.backend.board.domain.user
 
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/v1/users")
 class UserController (
     private val userService: UserService
 ) {
