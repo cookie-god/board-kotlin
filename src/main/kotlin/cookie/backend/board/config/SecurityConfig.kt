@@ -23,7 +23,7 @@ class SecurityConfig {
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { it.disable() }
-            .authorizeRequests {
+            .authorizeHttpRequests {
                 it.requestMatchers("/api/v1/users/**").permitAll()
                 it.requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**").permitAll()
                 it.anyRequest().authenticated()
