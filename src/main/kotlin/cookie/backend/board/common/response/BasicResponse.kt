@@ -4,11 +4,11 @@ import io.swagger.v3.oas.annotations.media.Schema
 
 class BasicResponse<T>(
     @Schema(description = "결과값")
-    result: T,
+    val result: T,
     @Schema(description = "http status 코드", example = "200")
-    code: Int,
+    val code: Int,
     @Schema(description = "성공 메시지", example = "OK")
-    message: String
+    val message: String
     ) {
 
     companion object {
