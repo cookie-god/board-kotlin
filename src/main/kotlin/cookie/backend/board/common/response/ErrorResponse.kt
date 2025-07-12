@@ -6,17 +6,15 @@ import io.swagger.v3.oas.annotations.media.Schema
 class ErrorResponse(
     @Schema(description = "http status 코드")
     val status: Int,
-    
     @Schema(description = "게시판 서비스 내부 코드")
     val code: String,
-    
     @Schema(description = "에러 메시지")
-    val resultMessage: String) {
+    val message: String) {
 
     constructor(errorCode: ErrorCode) : this(
         status = errorCode.status,
         code = errorCode.code,
-        resultMessage = errorCode.message
+        message = errorCode.message
     )
 
     companion object {
