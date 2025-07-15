@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 class UserInfo (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long = 0L,
 
     @Column(name="email")
     var email: String,
@@ -28,8 +28,9 @@ class UserInfo (
     @Column(name="role")
     var role: String,
 ) : BaseEntity() {
+
     companion object {
-        fun of(email: String, password: String, nickname: String, role: String): UserInfo = UserInfo(0, email, password, nickname, role)
+        fun of(email: String, password: String, nickname: String, role: String): UserInfo = UserInfo(email = email, password = password, nickname = nickname, role = role)
     }
 
     fun setInitPassword() {
