@@ -16,7 +16,7 @@ abstract class BaseEntity
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    var status: Status = Status.Active
+    var status: Status = Status.ACTIVE
 
     protected fun changeUpdatedAt() {
         updatedAt = LocalDateTime.now()
