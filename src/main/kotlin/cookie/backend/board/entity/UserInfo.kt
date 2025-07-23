@@ -1,8 +1,11 @@
 package cookie.backend.board.entity
 
 import cookie.backend.board.entity.base.BaseEntity
+import cookie.backend.board.enum.Role
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -26,11 +29,12 @@ class UserInfo (
     var nickname: String,
 
     @Column(name="role")
-    var role: String,
+    @Enumerated(value = EnumType.STRING)
+    var role: Role,
 ) : BaseEntity() {
 
     companion object {
-        fun of(email: String, password: String, nickname: String, role: String): UserInfo = UserInfo(email = email, password = password, nickname = nickname, role = role)
+        fun of(email: String, password: String, nickname: String): UserInfo = UserInfo(email = email, password = password, nickname = nickname, role = Role.USER)
     }
 
     fun setInitPassword() {

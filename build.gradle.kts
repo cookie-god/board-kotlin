@@ -67,8 +67,6 @@ kapt {
 	}
 }
 
-sourceSets["main"].java.srcDirs("build/generated/source/kapt/main")
-
 kotlin {
     jvmToolchain(17)
     
@@ -99,4 +97,11 @@ tasks.withType<Test> {
 
 tasks.bootRun {
 	jvmArgs = listOf("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005")
+}
+
+val querydslDir = file("build/generated/querydsl")
+
+
+sourceSets["main"].java {
+	srcDir(querydslDir)
 }

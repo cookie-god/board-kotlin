@@ -1,9 +1,12 @@
 package cookie.backend.board.domain.auth
 
 import cookie.backend.board.common.response.BasicResponse
+import cookie.backend.board.domain.auth.dto.request.PostSignUpRequest
 import cookie.backend.board.domain.auth.dto.response.PostSignUpResponse
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
@@ -15,13 +18,7 @@ class AuthController(
 ) {
 
     @PostMapping(value = ["sign-up"], produces = ["application/json"])
-    @ResponseStatus(HttpStatus.CREATED)
-    fun postSignUp(): BasicResponse<PostSignUpResponse> {
-        return BasicResponse(
-            result = PostSignUpResponse(
-                userId = 1L,
-            ),
-            code = HttpStatus.CREATED.value(),
-        )
+    fun postSignUp(@Valid @RequestBody request: PostSignUpRequest): BasicResponse<PostSignUpResponse> {
+        return BasicResponse.of(authService.createUser(request))
     }
 }
