@@ -3,6 +3,7 @@ package cookie.backend.board.config
 import cookie.backend.board.config.filter.JwtAuthenticationFilter
 import cookie.backend.board.config.jwt.JwtTokenProvider
 import cookie.backend.board.domain.auth.AuthService
+import kisung.template.board.config.filter.LoggingFilter
 import lombok.RequiredArgsConstructor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -33,8 +34,12 @@ class SecurityConfig(val jwtTokenProvider: JwtTokenProvider, val authService: Au
                 it.anyRequest().authenticated()
             }
             .addFilterBefore(
+                LoggingFilter(), UsernamePasswordAuthenticationFilter::class.java
+
+            )
+            .addFilterBefore(
                 JwtAuthenticationFilter(jwtTokenProvider, authService),
-                UsernamePasswordAuthenticationFilter::class.java
+                LoggingFilter::class.java
             )
         return http.build()
     }
