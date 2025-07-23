@@ -20,7 +20,7 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception::class)
     fun handleException(exception: Exception): ResponseEntity<ErrorResponse> {
-        val errorResponse = ErrorResponse.of(ErrorCode.InternalServerError)
+        val errorResponse = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR)
         log.error("Internal Server Error", exception)
         return ResponseEntity.status(errorResponse.status).body(errorResponse)
     }
