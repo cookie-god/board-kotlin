@@ -2,6 +2,7 @@ package cookie.backend.board.domain.auth
 
 import cookie.backend.board.entity.UserInfo
 import cookie.backend.board.enum.Status
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
@@ -10,5 +11,10 @@ class AuthService(
 ) {
     fun retrieveUserInfoById(id: Long): UserInfo? {
         return authRepository.findByIdAndStatus(id, Status.ACTIVE)
+    }
+
+    @Transactional
+    fun createUser() {
+
     }
 }

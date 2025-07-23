@@ -22,7 +22,7 @@ class SecurityConfig(val jwtTokenProvider: JwtTokenProvider, val authService: Au
         http
             .csrf { it.disable() }
             .authorizeHttpRequests {
-                it.requestMatchers("/api/v1/users/**").permitAll()
+                it.requestMatchers("/api/v1/auth/**").permitAll()
                 it.requestMatchers(
                     "/swagger",
                     "/swagger-ui.html",

@@ -6,9 +6,9 @@ class BasicResponse<T>(
     @Schema(description = "결과값")
     val result: T,
     @Schema(description = "http status 코드", example = "200")
-    val code: Int,
+    val code: Int = 200,
     @Schema(description = "성공 메시지", example = "OK")
-    val message: String
+    val message: String = "OK"
     ) {
 
     companion object {

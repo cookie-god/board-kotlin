@@ -78,9 +78,15 @@ class JwtAuthenticationFilter(
         private const val TOKEN_PREFIX = "Bearer "
         private const val DEFAULT_ROLE_PREFIX = "ROLE_"
         private val SECURE_URLS = listOf(
-            "/api/v1/feeds",
-            "/api/v1/comments",
-            "/api/v1/users",
+            "/api/v1/auth",
+            "/swagger",
+            "/swagger-ui",
+            "/swagger-ui.html",
+            "/swagger-ui/",
+            "/api-docs",
+            "/api-docs/",
+            "/v3/api-docs",
+            "/v3/api-docs/"
         )
     }
 }
