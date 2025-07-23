@@ -47,14 +47,27 @@ dependencies {
 
 	// jwt
 	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
-	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
+	// querydsl
+	implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+	kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 	
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
+
+kapt {
+	arguments {
+		arg("querydsl.entityAccessors", "true")
+		arg("querydsl.useFields", "false")
+	}
+}
+
+sourceSets["main"].java.srcDirs("build/generated/source/kapt/main")
 
 kotlin {
     jvmToolchain(17)
