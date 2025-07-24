@@ -1,6 +1,6 @@
 package cookie.backend.board.entity.base
 
-import cookie.backend.board.enum.Status
+import cookie.backend.board.enums.Status
 import jakarta.persistence.Column
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated

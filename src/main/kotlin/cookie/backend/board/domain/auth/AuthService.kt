@@ -1,11 +1,15 @@
 package cookie.backend.board.domain.auth
 
+import cookie.backend.board.common.code.ErrorCode
+import cookie.backend.board.config.exception.BoardException
 import cookie.backend.board.config.jwt.JwtTokenProvider
 import cookie.backend.board.domain.auth.dto.request.PostSignUpRequest
 import cookie.backend.board.domain.auth.dto.response.PostSignUpResponse
 import cookie.backend.board.entity.UserInfo
-import cookie.backend.board.enum.Status
+import cookie.backend.board.enums.Status
 import jakarta.transaction.Transactional
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -15,12 +19,15 @@ class AuthService(
     private val bcryptPasswordEncoder: BCryptPasswordEncoder,
     private val jwtTokenProvider: JwtTokenProvider
 ) {
+    private val logger: Logger = LoggerFactory.getLogger(AuthService::class.java)
+
     fun retrieveUserInfoById(id: Long): UserInfo? {
         return authRepository.findByIdAndStatus(id, Status.ACTIVE)
     }
 
     @Transactional
     fun createUser(req: PostSignUpRequest): PostSignUpResponse {
+        validate(req)
         var userInfo = UserInfo.of(
             email = req.email,
             password = req.password,
@@ -35,11 +42,13 @@ class AuthService(
 
 
     fun validate(req: PostSignUpRequest) {
-//        if (authRepository.existsByEmail(req.email)) {
-//            throw IllegalArgumentException("이미 존재하는 이메일입니다.")
-//        }
-//        if (authRepository.existsByNickname(req.nickname)) {
-//            throw IllegalArgumentException("이미 존재하는 닉네임입니다.")
-//        }
+        if (authRepository.existByEmail(req.email)) {
+            logger.info("Email already exists: ${req.email}")
+            throw BoardException(ErrorCode.DUPLICATE_EMAIL)
+        }
+        if (authRepository.existByNickname(req.nickname)) {
+            logger.info("Nickname already exists: ${req.nickname}")
+            throw BoardException(ErrorCode.DUPLICATE_NICKNAME)
+        }
     }
 }
