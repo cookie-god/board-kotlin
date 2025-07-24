@@ -101,7 +101,6 @@ tasks.bootRun {
 
 val querydslDir = file("build/generated/querydsl")
 
-
 sourceSets["main"].java {
 	srcDir(querydslDir)
 }
