@@ -1,4 +1,4 @@
-package cookie.backend.board.domain.auth
+package cookie.backend.board.domain.auth.repository
 
 import cookie.backend.board.entity.UserInfo
 

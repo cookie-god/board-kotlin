@@ -1,4 +1,4 @@
-package cookie.backend.board.domain.auth
+package cookie.backend.board.domain.auth.repository
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import cookie.backend.board.entity.QUserInfo.userInfo
@@ -7,7 +7,6 @@ import cookie.backend.board.enums.Status
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository
-import java.util.Optional
 
 @Repository
 class AuthRepositoryImpl(
