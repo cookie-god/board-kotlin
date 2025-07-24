@@ -17,6 +17,7 @@ enum class ErrorCode(
 
     NOT_EXIST_PASSWORD(400, "PASSWORD_001", "Password does not exist"),
     INVALID_PASSWORD(400, "PASSWORD_002", "Password is invalid"),
+    WRONG_PASSWORD(400, "PASSWORD_003", "Password is incorrect"),
 
     NOT_EXIST_NICKNAME(400, "NICKNAME_001", "Nickname does not exist"),
     INVALID_NICKNAME(400, "NICKNAME_002", "Nickname is invalid"),

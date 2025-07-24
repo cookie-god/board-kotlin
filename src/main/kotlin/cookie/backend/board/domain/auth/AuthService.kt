@@ -3,8 +3,11 @@ package cookie.backend.board.domain.auth
 import cookie.backend.board.common.code.ErrorCode
 import cookie.backend.board.config.exception.BoardException
 import cookie.backend.board.config.jwt.JwtTokenProvider
+import cookie.backend.board.domain.auth.dto.request.PostSignInRequest
 import cookie.backend.board.domain.auth.dto.request.PostSignUpRequest
+import cookie.backend.board.domain.auth.dto.response.PostSignInResponse
 import cookie.backend.board.domain.auth.dto.response.PostSignUpResponse
+import cookie.backend.board.domain.user.dto.UserBasicInfo
 import cookie.backend.board.entity.UserInfo
 import cookie.backend.board.enums.Status
 import jakarta.transaction.Transactional
@@ -26,7 +29,7 @@ class AuthService(
     }
 
     @Transactional
-    fun createUser(req: PostSignUpRequest): PostSignUpResponse {
+    fun signUp(req: PostSignUpRequest): PostSignUpResponse {
         validate(req)
         var userInfo = UserInfo.of(
             email = req.email,
@@ -37,6 +40,23 @@ class AuthService(
         userInfo = authRepository.save(userInfo)
         return PostSignUpResponse(
             userId = userInfo.id,
+        )
+    }
+
+    fun signIn(req: PostSignInRequest): PostSignInResponse {
+        val userInfo = authRepository.findUserInfoByEmail(req.email) ?: throw BoardException(ErrorCode.NOT_EXIST_USER)
+        if (!userInfo.checkPassword(bcryptPasswordEncoder, req.password)) {
+            throw BoardException(ErrorCode.WRONG_PASSWORD)
+        }
+        val accessToken: String =
+            jwtTokenProvider.createAccessToken(UserBasicInfo.of(userInfo.id, userInfo.email, userInfo.nickname, userInfo.role))
+
+        return PostSignInResponse(
+            token = accessToken,
+            userId = userInfo.id,
+            email = userInfo.email,
+            nickname = userInfo.nickname,
+            role = userInfo.role
         )
     }
 

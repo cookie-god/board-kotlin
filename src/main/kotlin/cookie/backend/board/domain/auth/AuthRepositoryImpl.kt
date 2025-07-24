@@ -2,10 +2,12 @@ package cookie.backend.board.domain.auth
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import cookie.backend.board.entity.QUserInfo.userInfo
+import cookie.backend.board.entity.UserInfo
 import cookie.backend.board.enums.Status
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository
+import java.util.Optional
 
 @Repository
 class AuthRepositoryImpl(
@@ -32,5 +34,16 @@ class AuthRepositoryImpl(
             .where(userInfo.nickname.eq(nickname), userInfo.status.eq(Status.ACTIVE))
             .fetchOne()
         return fetchOne != null
+    }
+
+    override fun findUserInfoByEmail(email: String): UserInfo? {
+        return jpaQueryFactory
+            .select(userInfo)
+            .from(userInfo)
+            .where(
+                userInfo.email.eq(email),
+                userInfo.status.eq(Status.ACTIVE)
+            )
+            .fetchFirst()
     }
 }
