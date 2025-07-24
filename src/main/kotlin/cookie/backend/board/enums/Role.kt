@@ -1,4 +1,4 @@
-package cookie.backend.board.enum
+package cookie.backend.board.enums
 
 enum class Role (
     val role: String

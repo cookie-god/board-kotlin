@@ -1,7 +1,7 @@
 package cookie.backend.board.entity
 
 import cookie.backend.board.entity.base.BaseEntity
-import cookie.backend.board.enum.Role
+import cookie.backend.board.enums.Role
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
