@@ -1,6 +1,8 @@
 package cookie.backend.board.domain.user
 
 import cookie.backend.board.common.code.ErrorCode
+import cookie.backend.board.common.code.SuccessCode
+import cookie.backend.board.common.response.BasicResponse
 import cookie.backend.board.common.util.SecurityUtil
 import cookie.backend.board.config.exception.BoardException
 import cookie.backend.board.domain.user.dto.request.PatchUserPasswordRequest
@@ -18,9 +20,9 @@ class UserController (
     private val userService: UserService
 ) {
     @PatchMapping(value = ["password"], produces = ["application/json"])
-    fun patchPassword(@Valid @RequestBody request: PatchUserPasswordRequest): UserInfo {
-        println("patchPassword")
+    fun patchPassword(@Valid @RequestBody request: PatchUserPasswordRequest): BasicResponse<Void> {
         val userInfo: UserInfo = SecurityUtil.getUser() ?: throw BoardException(ErrorCode.NOT_EXIST_USER)
-        return userInfo
+        userService.editPassword(userInfo.id, request)
+        return BasicResponse.of(null, SuccessCode.UPDATE_SUCCESS)
     }
 }
