@@ -6,9 +6,11 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import org.springframework.security.crypto.password.PasswordEncoder
 
@@ -31,6 +33,9 @@ class UserInfo (
     @Column(name="role")
     @Enumerated(value = EnumType.STRING)
     var role: Role,
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userInfo")
+    val feeds: List<Feed> = arrayListOf(),
 ) : BaseEntity() {
 
     companion object {
