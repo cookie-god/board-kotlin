@@ -1,4 +1,4 @@
-package cookie.backend.board.domain.user.dto
+package cookie.backend.board.domain.auth.dto.common
 
 import cookie.backend.board.enums.Role
 import io.swagger.v3.oas.annotations.media.Schema

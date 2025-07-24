@@ -7,7 +7,7 @@ import cookie.backend.board.domain.auth.dto.request.PostSignInRequest
 import cookie.backend.board.domain.auth.dto.request.PostSignUpRequest
 import cookie.backend.board.domain.auth.dto.response.PostSignInResponse
 import cookie.backend.board.domain.auth.dto.response.PostSignUpResponse
-import cookie.backend.board.domain.user.dto.UserBasicInfo
+import cookie.backend.board.domain.auth.dto.common.UserBasicInfo
 import cookie.backend.board.entity.UserInfo
 import cookie.backend.board.enums.Status
 import jakarta.transaction.Transactional

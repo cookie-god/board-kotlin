@@ -1,6 +1,6 @@
 package cookie.backend.board.config.jwt
 
-import cookie.backend.board.domain.user.dto.UserBasicInfo
+import cookie.backend.board.domain.auth.dto.common.UserBasicInfo
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.security.Key
 import java.util.Date
+import kotlin.text.get
 
 @Component
-class JwtTokenProvider (
+class JwtTokenProvider(
     @Value("\${jwt.secret}") secretKey: String,
     @Value("\${jwt.expiration_time}") val accessTokenExpirationTime: Long
 ) {
@@ -55,7 +56,14 @@ class JwtTokenProvider (
     /**
      * Access Token에서 사용자 아이디를 추출하는 함수
      */
-    fun getUserId(token: String): Long? = parseClaims(token)?.get(TOKEN_USER_ID, Long::class.java)
+    fun getUserId(token: String): Long? {
+        val value = parseClaims(token)?.get(TOKEN_USER_ID)
+        return when (value) {
+            is Long -> value
+            is Int -> value.toLong()
+            else -> null
+        }
+    }
 
     /**
      * Access Token에서 사용자 정보를 추출하는 함수
