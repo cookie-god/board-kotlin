@@ -1,5 +1,8 @@
 package cookie.backend.board.domain.auth
 
+import cookie.backend.board.common.code.SuccessCode
+import cookie.backend.board.common.code.SuccessCode.CREATE_SUCCESS
+import cookie.backend.board.common.code.SuccessCode.READ_SUCCESS
 import cookie.backend.board.common.response.BasicResponse
 import cookie.backend.board.domain.auth.dto.request.PostSignInRequest
 import cookie.backend.board.domain.auth.dto.request.PostSignUpRequest
@@ -21,12 +24,14 @@ class AuthController(
 ) {
 
     @PostMapping(value = ["sign-up"], produces = ["application/json"])
+    @ResponseStatus(HttpStatus.CREATED)
     fun postSignUp(@Valid @RequestBody request: PostSignUpRequest): BasicResponse<PostSignUpResponse> {
-        return BasicResponse.of(authService.signUp(request))
+        return BasicResponse.of(authService.signUp(request), CREATE_SUCCESS)
     }
 
     @PostMapping(value = ["sign-in"], produces = ["application/json"])
+    @ResponseStatus(HttpStatus.OK)
     fun postSignIn(@Valid @RequestBody request: PostSignInRequest): BasicResponse<PostSignInResponse> {
-        return BasicResponse.of(authService.signIn(request))
+        return BasicResponse.of(authService.signIn(request), READ_SUCCESS)
     }
 }

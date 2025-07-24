@@ -1,5 +1,6 @@
 package cookie.backend.board.common.response
 
+import cookie.backend.board.common.code.SuccessCode
 import io.swagger.v3.oas.annotations.media.Schema
 
 class BasicResponse<T>(
@@ -12,6 +13,6 @@ class BasicResponse<T>(
     ) {
 
     companion object {
-        fun <T> of(result: T): BasicResponse<T> = BasicResponse(result, 200, "OK")
+        fun <T> of(result: T, successCode: SuccessCode): BasicResponse<T> = BasicResponse(result, successCode.status, successCode.message)
     }
 }
